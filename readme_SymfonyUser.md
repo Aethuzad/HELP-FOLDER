@@ -107,32 +107,6 @@ ou
 
 - ```->add('firstName')```
 
-## \Security\Authenticator.php effectuer la redirection après inscription :
-
-<code><pre>
-// For example : return new RedirectResponse($this->urlGenerator->generate('some_route'));
-        throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
-</pre></code>
-
-- a remplacer par :
- return new RedirectResponse($this->urlGenerator->generate('app_home'));
-        // throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
-
-## Automatiser le ROLE_USER lors de l'enregistrement d'un nouvel utilisateur : 
-
-- RegistrationController :
-    - juste après la validation :
-    ```if ($form->isSubmitted() && $form->isValid()) {```
-    - ```$user->setRoles(['ROLE_USER']);``` n'oubliez pas le type array []
-
-## Ajout d'un champ personnalisé dans la vue (template) registrationForm :
-
-- {{ form_row(registrationForm.confirmPassword, {
-            label: 'Confirm Password'
-        }) }}
-- ou
-- {{ form_row(registrationForm.firstName) }}
-
 ## Confirmation du password
 
 - form\RegistrationFormType.php
@@ -181,6 +155,34 @@ ou
     {% if passError is defined %}
         <div class="alert alert-danger" role="alert">{{ passError }}</div>
 {% endif %}
+
+## \Security\Authenticator.php effectuer la redirection après inscription :
+
+<code><pre>
+// For example : return new RedirectResponse($this->urlGenerator->generate('some_route'));
+        throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
+</pre></code>
+
+- a remplacer par :
+ return new RedirectResponse($this->urlGenerator->generate('app_home'));
+        // throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
+
+<!-- ## Automatiser le ROLE_USER lors de l'enregistrement d'un nouvel utilisateur : 
+
+- RegistrationController :
+    - juste après la validation :
+    ```if ($form->isSubmitted() && $form->isValid()) {```
+    - ```$user->setRoles(['ROLE_USER']);``` n'oubliez pas le type array [] -->
+
+## Ajout d'un champ personnalisé dans la vue (template) registrationForm :
+
+- {{ form_row(registrationForm.confirmPassword, {
+            label: 'Confirm Password'
+        }) }}
+- ou
+- {{ form_row(registrationForm.firstName) }}
+
+
 
 
 ## Installation du reset password UPDATE ne fonctionne pas en local ou définir une adresse mail dans le php.ini
