@@ -10,6 +10,14 @@
 - Puis refaire une migration avec symfony console make:migration
 - Puis finaliser la migration avec symfony console doctrine:migrations:migrate
 
-## Pour remplir la database avec des données
+## Installation de Easyadmin
+
+- composer require easycorp/easyadmin-bundle
+
+## Pour remplir la database avec des données utilisant Faker et Fixtures
 
 - symfony console doctrine:fixtures:load
+
+## Pour la pagination on utilise : knplabs
+
+- composer require knplabs/knp-paginator-bundle
