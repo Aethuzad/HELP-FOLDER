@@ -94,7 +94,8 @@ ou
     }
 </pre></code>
 
-- une redirection vers register
+- PAR UNE REDIRECTION VERS REGISTER
+
 <code><pre>
      
     public function new(Request $request): Response
@@ -105,65 +106,22 @@ ou
 
 ## RegistrationFormType : ajout des elements de formulaire qui me manque(ex:fistName,lastName...)  
 
-- ```->add('firstName')```
+- ```->add('firstName')``` (Ou le nom de l'entité que vous avez donné. Exemple : ->add('nom'))
 
 ## Confirmation du password
 
 - form\RegistrationFormType.php
-- ajout d'un nouveau champ confirmPassword copier/coller du plainPassword :
-<code><pre>
-->add('confirmPassword', PasswordType::class, [
-    // instead of being set onto the object directly,
-    // this is read and encoded in the controller
-    'mapped' => false,
-    'attr' => ['autocomplete' => 'new-password'],
-    'constraints' => [
-        new NotBlank([
-            'message' => 'Please enter a password',
-        ]),
-        new Length([
-            'min' => 6,
-            'minMessage' => 'Your password should be at least {{ limit }} characters',
-            // max length allowed by Symfony for security reasons
-            'max' => 4096,
-        ]),
-    ],
-])
-</pre></code>
 
-- j'effectue la comparaison dans mon RegistrationController :
-- apres validation du formulaire je crée une condition pour comparer plainPassword et confirmPassword :
-
- if($form->get('plainPassword')->getData() === $form->get('confirmPassword')->getData() ){ ...
-
- - dans laquelle j'integre mon ash de plainpassword et l'enregistrement (persist et flush)
-
- } else {
-
-- je renvoie mon utilisateur vers le formulaire avec une nouvelle variable 'passError' :
-
-    return $this->render('registration/register.html.twig', [
-                    'registrationForm' => $form->createView(),
-                    'passError' => 'Les mots de pass ne sont pas identiques'
-        ]);
- }
-
-
-- dans la partie view (register.html.twig) j'affiche passError à l'utilisateur en le testant :
-
-{% block body %}
-    {% if passError is defined %}
-        <div class="alert alert-danger" role="alert">{{ passError }}</div>
-{% endif %}
 
 ## \Security\Authenticator.php effectuer la redirection après inscription :
 
 <code><pre>
 // For example : return new RedirectResponse($this->urlGenerator->generate('some_route'));
-        throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
+        throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);              
 </pre></code>
 
-- a remplacer par :
+- A REMPLACER PAR :
+
  return new RedirectResponse($this->urlGenerator->generate('app_home'));
         // throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
 
