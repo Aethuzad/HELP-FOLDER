@@ -1,5 +1,5 @@
 # Récupération d'un projet symfony :
- 
+
 - Forker le projet en prenant en compte de récupérer toutes les branches
 - Cloner le projet
 - Recréer le .env d'origine
@@ -10,4 +10,6 @@
 - Puis refaire une migration avec symfony console make:migration
 - Puis finaliser la migration avec symfony console doctrine:migrations:migrate
 
+## Pour remplir la database avec des données
 
+- symfony console doctrine:fixtures:load

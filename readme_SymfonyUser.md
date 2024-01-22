@@ -65,7 +65,7 @@ ou
 - ```@Route("/", name="app_home")```
 - je peux aussi effectuer une redirection vers un autre controller ( cf UserController new )
 
-## Suppression du user new inutil car remplacé par le register
+## Usercontroller : Suppression du user new inutile car remplacé par le register 
 
 - Dans mon UserController dans la methode new je remplace :
 
@@ -108,12 +108,8 @@ ou
 
 - ```->add('firstName')``` (Ou le nom de l'entité que vous avez donné. Exemple : ->add('nom'))
 
-## Confirmation du password
 
-- form\RegistrationFormType.php
-
-
-## \Security\Authenticator.php effectuer la redirection après inscription :
+## \Security\Authenticator.php : effectuer la redirection après inscription :
 
 <code><pre>
 // For example : return new RedirectResponse($this->urlGenerator->generate('some_route'));
@@ -132,21 +128,52 @@ ou
     ```if ($form->isSubmitted() && $form->isValid()) {```
     - ```$user->setRoles(['ROLE_USER']);``` n'oubliez pas le type array [] -->
 
+## Confirmation du password
+
+- form\RegistrationFormType.php
+- remplacement du champ plainPassword :
+<code><pre>
+->add('password', RepeatedType::class, [
+                'type' => PasswordType::class,
+                'invalid_message' => 'The password fields must match.',
+                'options' => ['attr' => ['class' => 'password-field']],
+                'required' => true,
+                'first_options'  => ['label' => 'Password'],
+                'second_options' => ['label' => 'Repeat Password'],
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Please enter a password',
+                    ]),
+                    new Length([
+                        'min' => 6,
+                        'minMessage' => 'Your password should be at least {{ limit }} characters',
+                        // max length allowed by Symfony for security reasons
+                        'max' => 4096,
+                    ]),
+                ]
+            ])
+</pre></code>
+
+- ajout du use pour le RepeatedType :
+```use Symfony\Component\Form\Extension\Core\Type\RepeatedType;```
+
+- emplacement des plainPassword par password dans RegistrationController
+
 ## Ajout d'un champ personnalisé dans la vue (template) registrationForm :
 
-- {{ form_row(registrationForm.confirmPassword, {
-            label: 'Confirm Password'
-        }) }}
-- ou
-- {{ form_row(registrationForm.firstName) }}
+
+
+- suppression dans le twig de : ```{{ form_row(registrationForm.plainPassword) }}```
+- et ajout dans le meme fichier de  :
+```{{ form_row(registrationForm.password.first) }}{{ form_row(registrationForm.password.second) }}```
 
 
 
 
-## Installation du reset password UPDATE ne fonctionne pas en local ou définir une adresse mail dans le php.ini
+<!-- ## Installation du reset password UPDATE ne fonctionne pas en local ou définir une adresse mail dans le php.ini
  - ```composer require symfonycasts/reset-password-bundle```
  - ```php bin/console make:reset-password```
 
- - dans le .env il faudra ensuite configurer le MAILER_DSN= 
+ - dans le .env il faudra ensuite configurer le MAILER_DSN=  -->
 
  
