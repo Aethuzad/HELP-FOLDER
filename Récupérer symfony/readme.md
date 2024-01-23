@@ -21,3 +21,13 @@
 ## Pour la pagination on utilise : knplabs
 
 - composer require knplabs/knp-paginator-bundle
+
+## Pour revenir à une version précédente : 
+
+- symfony console doctrine:migrations:rollup
+
+Ne pas oublier de supprimer toutes les versions aussi bien sur VSCODE que sur la table doctrine_migrations_versions
+
+## Pour voir la difference entre les versions : 
+
+- symfony console doctrine:migrations:diff
