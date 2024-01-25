@@ -10,6 +10,10 @@ ou
 - ```DATABASE_URL="mysql://login:password@127.0.0.1:3306/dbname"```
 - Or if you use MariaDB you uncomment the line with MariaDB don't forget the VERSION of your DB
 
+## Si commit effectué avant suppression du .env :
+
+- git rm -r--cached .env
+
 ## Création du user
 
 - ```php bin/console make:user```
